@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', api);
 
 // mongoose
-mongoose.connect('mongodb://localhost/groceries');
+mongoose.connect('mongodb://gil:gil@ds125262.mlab.com:25262/groceries');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
