@@ -1,0 +1,13 @@
+{
+  "db": {
+    "connection": "mongodb://gil:gil@ds125262.mlab.com:25262/groceries",
+    "schemas": {
+      "account": "Account",
+      "grocery": "Grocery"
+    }
+  },
+  "auth":{
+    "secret":"gilsecret"
+  }
+}
+

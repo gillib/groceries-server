@@ -1,8 +1,10 @@
 // dependencies
-const express = require('express');
-const logger = require('morgan');
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const express = require('express');
+const logger = require('morgan');
+const config = require('config');
 const api = require('./api');
 
 const app = express();
@@ -14,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', api);
 
 // mongoose
-mongoose.connect('mongodb://gil:gil@ds125262.mlab.com:25262/groceries');
+mongoose.connect(config.get('db.connection'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

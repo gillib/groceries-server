@@ -4,8 +4,11 @@ const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 const jwt = require("jwt-simple");
 const moment = require("moment");
+const config = require('config');
+
 
 const Account = require('../../models/account');
+const AUTH_SECRET = config.get('auth.secret');
 
 router.use(passport.initialize());
 router.use(passport.session());
@@ -29,7 +32,7 @@ router.post('/register', function (req, res, next) {
                 exp: moment().add(10, 'days').unix()
             };
 
-            const token = jwt.encode(payload, "shhh..");
+            const token = jwt.encode(payload, AUTH_SECRET);
 
             res.status(200).send({
                 user: user.username,
@@ -39,7 +42,7 @@ router.post('/register', function (req, res, next) {
     });
 });
 
-router.post('/login', passport.authenticate('local'), function (req, res, next) {
+router.post('/login', passport.authenticate('local'), function (req, res) {
     const user = {username: req.body.username, password: req.body.password};
 
     const payload = {
@@ -47,7 +50,7 @@ router.post('/login', passport.authenticate('local'), function (req, res, next) 
         exp: moment().add(10, 'days').unix()
     };
 
-    const token = jwt.encode(payload, "shhh..");
+    const token = jwt.encode(payload, AUTH_SECRET);
 
     res.status(200).send({
         user: user.username,
